@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs';
 
 async function fetchQuotes() {
     // initialize a headless browser
@@ -48,11 +49,26 @@ async function fetchQuotes() {
         return finalList;
     });
 
-    // print the quotes 
-    console.log(quotes);
-
     // close the browser
     await browser.close();
+
+    return quotes;
 }
 
-fetchQuotes();
+
+
+function writeQuotesToFile(fname, quotes) {
+    const quoteString = quotes.join('\n');
+
+    fs.writeFile(fname, quoteString, (err) => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log('Quotes written to file');
+        }
+    });
+}
+
+const quotes = await fetchQuotes();
+
+writeQuotesToFile('quotes.txt', quotes);

@@ -167,3 +167,68 @@ const quotes = await page.evaluate(() => {
 ```
 
 Now if you run the file you should see a list of all the quotes on the page.
+
+## Step 5: What's next?
+Now that you know how to scrape a website you can scrape any website you want.
+
+But what should we do with all these quotes?
+
+I considered a couple options:
+
+1. Store them in a database
+2. Write them to a file
+3. Setup an email service to send me a quote every day
+
+I decided to go with option 2 and then maybe option 3 later.
+
+## Step 6: Writing to a file
+To write to a file we first need to consider how will we format the quotes?
+
+I seperate each quote with a newline character so that each quote is on a new line.
+
+First create a file called quotes.txt in the root of your project directory.
+
+Now we need to modify the fetchQuotes function to write to the file.
+
+Be sure to import the fs module first with:
+
+```javascript
+import fs from 'fs';
+```
+
+Now we can write our function to write to the file:
+
+```javascript
+function writeQuotesToFile(fname, quotes) {
+    const quoteString = quotes.join('\n');
+
+    fs.writeFile(fname, quoteString, (err) => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log('Quotes written to file');
+        }
+    });
+}
+```
+
+Next modify the fetchQuotes function to return the quotes array:
+
+```javascript
+return quotes;
+```
+
+Now we just call our scrape function and pass the quotes array to the writeQuotesToFile function:
+
+```javascript
+const quotes = await fetchQuotes();
+
+writeQuotesToFile('quotes.txt', quotes);
+```
+
+Now if you run the file you should see the quotes written to the file.
+
+## That's it!
+Now you know how to scrape a website and write the results to a file.
+
+I hope you enjoyed this tutorial and learned something new.

@@ -2,7 +2,7 @@
   "name": "dostoevsky-quote-scraper",
   "version": "1.0.0",
   "description": "## Introduction",
-  "main": "index.js",
+  "main": "src/scrape.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
